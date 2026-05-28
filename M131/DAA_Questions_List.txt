@@ -1,0 +1,321 @@
+DAA MASTER QUESTION LIST (Questions + Approach)
+
+================ ASSIGNMENT 1 ================
+
+Q1. Egg Dropping (Infinite Floors)
+Problem:
+Find the highest floor h such that an egg does not break when dropped.
+Constraint: O(log h) drops.
+Method:
+Exponential search (1,2,4,8...) to find range, then binary search.
+
+--------------------------------------------------
+Q2. Minimum Length Subarray ≥ S
+Problem:
+Given array a[1..n], find shortest subarray with sum ≥ S.
+Method:
+Prefix sum + binary search OR sliding window (O(n)).
+
+--------------------------------------------------
+Q3. Median of Two Sorted Arrays
+Problem:
+Find median of two sorted arrays of size n.
+Method:
+Binary search partition (O(log n)).
+
+--------------------------------------------------
+Q4. Pair Sum = S
+Problem:
+Find two numbers whose sum = S.
+Method:
+Sort + two pointers (O(n log n)).
+
+--------------------------------------------------
+Q5. Power Form Check
+Problem:
+Check if a = b^k (k>1).
+Method:
+Try k from 2 to log(a), use binary search on b.
+
+--------------------------------------------------
+Q6. Land Redistribution
+Problem:
+Find max feasible f and corresponding c.
+Method:
+Binary search on f, adjust c using prefix sums.
+
+--------------------------------------------------
+Q7. Treasure Hunt
+Problem:
+Find unknown N minimizing distance.
+Method:
+Alternate exponential search: +1,-2,+4,-8...
+
+--------------------------------------------------
+Q8. Recurrences
+Solve:
+1. T(n)=T(n/2)+n^3 → O(n^3)
+2. T(n)=4T(n/3)+n → O(n^log3(4))
+3. T(n)=4T(n/2)+n → O(n^2)
+4. T(n)=3T(n-1)+1 → O(3^n)
+5. T(n)=16T(n/4)+n^2 → O(n^2 log n)
+6. T(n)=4T(n/2)+n^2 log n → O(n^2 log n)
+
+--------------------------------------------------
+Q9. Max Profit
+Problem:
+Buy once, sell once for max profit.
+Method:
+Track minimum price so far.
+
+--------------------------------------------------
+Q10. Celebrity Problem
+Problem:
+Find person known by all but knows none.
+Method:
+Two-pointer elimination.
+
+--------------------------------------------------
+Q11. Polynomial Evaluation
+Problem:
+Evaluate P(x).
+Method:
+Horner’s method.
+
+--------------------------------------------------
+Q12. Function Mapping Subset
+Problem:
+Largest subset where mapping is bijection.
+Method:
+Find cycles in graph.
+
+--------------------------------------------------
+Q13. Interval Containment
+Problem:
+Count intervals not contained in others.
+Method:
+Sort by left asc, right desc.
+
+--------------------------------------------------
+Q14. k-Subset Product Sum
+Problem:
+Sum of all k-size subset products.
+Method:
+DP / combinatorics.
+
+==================================================
+================ ASSIGNMENT 2 ================
+
+Q15. Non-Dominated Points
+Method:
+Sort by x, scan max y.
+
+--------------------------------------------------
+Q16. Majority Fingerprint
+Method:
+Divide & conquer / Boyer-Moore.
+
+--------------------------------------------------
+Q17. Significant Inversions
+Method:
+Modified merge sort.
+
+--------------------------------------------------
+Q18. Hidden Lines
+Method:
+Sort by slope, convex hull trick.
+
+--------------------------------------------------
+Q19. Augmented BST
+Method:
+Update subtree info during insert/delete.
+
+--------------------------------------------------
+Q20. Fibonacci O(log n)
+Method:
+Matrix exponentiation.
+
+--------------------------------------------------
+Q21. Local Minimum in Tree
+Method:
+Compare node with children recursively.
+
+--------------------------------------------------
+Q22. Median via Queries
+Method:
+Binary search using rank queries.
+
+--------------------------------------------------
+Q23. Fourier Transform (mod 7)
+Method:
+Matrix multiplication + modular arithmetic.
+
+==================================================
+================ HEAPS & SORTING ================
+
+Q24. Min Heap
+Method:
+Array + heapify.
+
+--------------------------------------------------
+Q25. Heap Sort
+Method:
+Build heap + extract min repeatedly.
+
+--------------------------------------------------
+Q26. Max Heap + Kth Minimum
+Method:
+Use max heap of size k.
+
+--------------------------------------------------
+Q27. Bucket Sort
+Method:
+Distribute into buckets + sort each.
+
+==================================================
+================ DATA STRUCTURES ================
+
+Q28. Binomial Heap
+Method:
+Merge trees of same degree.
+
+--------------------------------------------------
+Q29. Fibonacci Heap
+Method:
+Lazy merging + amortized analysis.
+
+--------------------------------------------------
+Q30. Dynamic Array
+Method:
+Resize using doubling strategy.
+
+==================================================
+================ DYNAMIC PROGRAMMING ================
+
+Q31. LCS
+Method:
+DP table (O(n*m)).
+
+--------------------------------------------------
+Q32. LIS
+Method:
+DP or binary search (O(n log n)).
+
+==================================================
+================ GREEDY ================
+
+Q33. Coin Change
+Method:
+Greedy (not always optimal).
+
+--------------------------------------------------
+Q34. Skier-Ski Assignment
+Method:
+Sort both arrays.
+
+--------------------------------------------------
+Q35. Job Scheduling
+Method:
+Greedy with deadlines.
+
+--------------------------------------------------
+Q36. Gas Station
+Method:
+Fill fully when needed.
+
+--------------------------------------------------
+Q37. Interval Cover
+Method:
+Pick leftmost point, cover greedily.
+
+--------------------------------------------------
+Q38. Knapsack (Unbounded)
+Method:
+DP.
+
+--------------------------------------------------
+Q39. Box Stacking
+Method:
+DP + sorting.
+
+--------------------------------------------------
+Q40. Game Strategy
+Method:
+DP (optimal play).
+
+--------------------------------------------------
+Q41. 0/1 Knapsack
+Method:
+DP.
+
+--------------------------------------------------
+Q42. Fractional Knapsack
+Method:
+Greedy by value/weight.
+
+--------------------------------------------------
+Q43. Activity Selection
+Method:
+Sort by finish time.
+
+==================================================
+================ GRAPH ALGORITHMS ================
+
+Q44. Adjacency Matrix → List
+Method:
+Convert matrix to adjacency list.
+
+--------------------------------------------------
+Q45. Prim’s MST
+Method:
+Min heap.
+
+--------------------------------------------------
+Q46. Kruskal’s MST
+Method:
+Sort edges + DSU.
+
+--------------------------------------------------
+Q47. Dijkstra
+Method:
+Priority queue.
+
+--------------------------------------------------
+Q48. Bellman-Ford
+Method:
+Relax edges n-1 times.
+
+--------------------------------------------------
+Q49. Floyd-Warshall
+Method:
+Triple loop DP.
+
+--------------------------------------------------
+Q50. Topological Sort
+Method:
+Kahn or DFS.
+
+==================================================
+================ MAX FLOW ================
+
+Q51. Water Network
+Method:
+Edmonds-Karp.
+
+--------------------------------------------------
+Q52. Bipartite Matching
+Method:
+Convert to flow.
+
+--------------------------------------------------
+Q53. Max Flow + Min Cut
+Method:
+Residual graph + cut.
+
+--------------------------------------------------
+Q54. Multi-Source Sink
+Method:
+Add super source/sink.
+
+==================================================
+END OF FILE

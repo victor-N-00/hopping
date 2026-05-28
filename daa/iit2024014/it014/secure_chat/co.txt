@@ -1,0 +1,145 @@
+#!/bin/bash
+# ==============================
+# NETWORK ANALYSIS LAB COMMANDS
+# Tools: Wireshark, Tcpdump, IPTables, Snort, Windows Firewall (reference)
+# ==============================
+
+echo ">>> Updating system and installing tools..."
+sudo apt update
+sudo apt install wireshark tcpdump iptables snort tshark -y
+
+# --------------------------------------------------
+# 1. WIRESHARK / TSHARK COMMANDS
+# --------------------------------------------------
+
+# Run Wireshark GUI
+wireshark &
+
+# Capture ICMP packets (Ethernet/WiFi)
+tshark -i eth0 -f "icmp"
+
+# Capture ICMP on loopback
+tshark -i lo -f "icmp"
+
+# Analyze DNS packets
+tshark -i eth0 -f "udp port 53"
+
+# Filter packets by IP
+tshark -i eth0 -Y "ip.src == 192.168.1.10"
+tshark -i eth0 -Y "ip.dst == 8.8.8.8"
+
+# Extract packet info to text file
+tshark -r capture.pcap -V > capture.txt
+
+# Follow TCP stream (in GUI use: Right-click → Follow → TCP Stream)
+# Example filter
+tshark -i eth0 -Y "tcp.port == 80"
+
+# --------------------------------------------------
+# 2. TCPDUMP COMMANDS
+# --------------------------------------------------
+
+# List interfaces
+sudo tcpdump -D
+
+# Capture on eth0
+sudo tcpdump -i eth0
+
+# Capture specific protocol
+sudo tcpdump -i eth0 icmp
+sudo tcpdump -i eth0 tcp
+sudo tcpdump -i eth0 udp
+
+# Verbose capture
+sudo tcpdump -i eth0 -vv icmp
+
+# Capture ICMP packets
+sudo tcpdump -i eth0 icmp
+
+# Capture by source/destination IP
+sudo tcpdump -i eth0 src 192.168.1.10
+sudo tcpdump -i eth0 dst 8.8.8.8
+
+# Save capture to file
+sudo tcpdump -i eth0 -w packets.pcap
+
+# Read capture from file
+sudo tcpdump -r packets.pcap
+
+# --------------------------------------------------
+# 3. IPTABLES COMMANDS
+# --------------------------------------------------
+
+# Block inbound traffic from a specific IP
+sudo iptables -A INPUT -s 192.168.1.10 -j DROP
+
+# Allow outbound traffic to specific subnet
+sudo iptables -A OUTPUT -d 10.0.0.0/8 -j ACCEPT
+
+# Allow inbound HTTP (port 80)
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+
+# Block outbound SSH (port 22)
+sudo iptables -A OUTPUT -p tcp --dport 22 -j DROP
+
+# ICMP rate limiting
+sudo iptables -A INPUT -p icmp -m limit --limit 1/s -j ACCEPT
+sudo iptables -A INPUT -p icmp -j DROP
+
+# Create a new chain
+sudo iptables -N MYCHAIN
+sudo iptables -A INPUT -j MYCHAIN
+
+# Filter ICMP packets containing “hello” in payload
+sudo iptables -A INPUT -p icmp -m string --algo bm --hex-string "|68656c6c6f|" -j DROP
+
+# Save current iptables rules
+sudo iptables-save > iptables_backup.rules
+
+# --------------------------------------------------
+# 4. SNORT COMMANDS
+# --------------------------------------------------
+
+# Verify installation
+snort -V
+
+# Test config file
+sudo snort -T -c /etc/snort/snort.conf
+
+# Run snort in live capture mode
+sudo snort -v -i eth0
+
+# Log packets to directory
+sudo snort -l /var/log/snort/ -b
+
+# Custom Snort rules (edit local.rules)
+echo 'alert tcp any any -> 192.168.1.10 22 (msg:"SSH connection attempt"; sid:100001;)' | sudo tee -a /etc/snort/rules/local.rules
+echo 'alert icmp any any -> any any (content:"MALWARE"; msg:"Malicious ICMP payload detected"; sid:100002;)' | sudo tee -a /etc/snort/rules/local.rules
+echo 'alert tcp any any -> any 80 (flags:S; threshold:type both, track by_src, count 20, seconds 10; msg:"Possible SYN flood"; sid:100003;)' | sudo tee -a /etc/snort/rules/local.rules
+
+# Reload configuration
+sudo snort -T -c /etc/snort/snort.conf
+
+# Analyze a PCAP file for intrusions
+sudo snort -A console -r capture.pcap -c /etc/snort/snort.conf
+
+# --------------------------------------------------
+# 5. WINDOWS FIREWALL (REFERENCE)
+# --------------------------------------------------
+# Run these in PowerShell (Administrator):
+
+# Enable / Disable Firewall
+# Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+# Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+
+# Block inbound IP
+# New-NetFirewallRule -DisplayName "BlockIP" -Direction Inbound -RemoteAddress 192.168.1.10 -Action Block
+
+# Allow inbound subnet
+# New-NetFirewallRule -DisplayName "AllowSubnet" -Direction Inbound -RemoteAddress 192.168.1.0/24 -Action Allow
+
+# Block ICMP protocol
+# New-NetFirewallRule -DisplayName "BlockICMP" -Protocol ICMPv4 -Action Block
+
+echo ">>> Network Lab Commands Loaded Successfully!"
+

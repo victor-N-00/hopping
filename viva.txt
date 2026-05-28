@@ -1,0 +1,28 @@
+Transport Layer 181
+The Network Layer: 303 377
+
++11
+
+x-------------------------------x-----------------------------x--------------------------------x-------------------------------------x
+
+Network layer: the data plane and the control plane.
+
+ "The primary role of the network layer is deceptively simple—to move packets from a sending host to a receiving host."
+
+            per-router functions in the network layer that determine how a datagram (that is, a
+data plane: network-layer packet) arriving on one of a router’s input links is forwarded to one
+            of that router’s output links.
+
+Forwarding and Routing :
+
+Forwarding-> 1)When a packet arrives at a router’s input link, the router must move the packet to the appropriate output link.
+             2)Forwarding refers to the router-local action of transferring a packet from an input
+              link interface to the appropriate output link interface.
+
+
+Routing-> 1)The network layer must determine the route or path taken by packets as they flow from a sender to a receiver. The algorithms are routing algorithms.
+          2)Routing refers to the network-wide process that determines the end-to-end
+            paths that packets take from source to destination.
+
+misc formulas 
+ req memory B.W ≥ 2 × link rate x N (shared via memory) N ports
